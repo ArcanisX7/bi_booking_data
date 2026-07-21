@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Booking Analytics — Question &amp; Answer</title>
+  <link rel="stylesheet" href="assets/style.css">
+  <script src="https://cdn.plot.ly/plotly-3.0.0.min.js" charset="utf-8"></script>
+</head>
+<body>
+
+  <div class="topbar">
+    <a href="https://github.com/ArcanisX7/bi_booking_data" target="_blank">GitHub Repository</a>
+  </div>
+
+  <nav class="mainnav">
+    <a href="index.html">Overview</a>
+    <a href="dimensions.html">Main dimensions</a>
+    <a href="qa.html" class="active">Question &amp; answer</a>
+  </nav>
+
+  <main class="content qa">
+
+    <h1>Question &amp; Answer</h1>
+
+    <h2>1. Which dimension(s) have the biggest impact on AOV (Average Order Value)?</h2>
+    <p class="answer">Average Order Value is driven far more by who is traveling and where they are going than by which market or channel the booking comes through. Passenger Group shows the widest spread: Groups average €2,998 per booking compared to just €838 for Single travelers, a 3.6x difference. Destination Type follows closely, ranging from €3,941 for Exotic trips down to €1,214 for Hotel Only bookings, a 3.2x spread. By comparison, differences across Market or Channel are much smaller, typically only tens of percent rather than multiples. Departure Season (Summer vs. Winter) has almost no effect on price at all – it shapes how many bookings come in, not how much each one is worth.</p>
+
+    <h2>2. What are the main GBV (Gross Booking Value) drivers?</h2>
+    <p class="answer">Gross Booking Value is driven mainly by volume, not by price. Two dimensions stand out: Destination Type and Departure Season. Sun &amp; Beach trips generate 83.6% of total GBV, even though their average order value (€2,029) is lower than Exotic trips (€3,941) – Exotic simply doesn't have the volume to matter, making up only 11.8% of GBV despite its high price tag. The same pattern repeats with Departure Season: Summer departures account for 80.1% of GBV versus Winter's 19.9%, despite almost no difference in price between the two seasons. In short, GBV comes from where and when most people already travel, not from the niche segments that charge the most per booking.</p>
+
+    <h2>3. What are the year-over-year dynamics of "First Minute season"?</h2>
+    <p class="answer">The share of First Minute bookings is declining, though only modestly. In 2024, 27.0% of bookings (30.8% of GBV) were First Minute; in 2025 this dropped to 24.9% of bookings (28.6% of GBV) — down about 2 percentage points on both measures. First Minute bookings also carry a meaningfully higher average order value than regular bookings (€2,423 vs. €2,008 in 2025), which is why their GBV share consistently runs a few points above their booking share.</p>
+    <p class="answer">One caveat: 2022 and 2023 are excluded from this comparison. 2022 has only 2 bookings total, and 2023 was Invia's ramp-up year — its few bookings happened to concentrate in exactly the months we define as First Minute, which would make that year falsely look like 81% First Minute. That's an artifact of the business still starting up, not real customer behavior. 2024 and 2025 are the only two years complete and mature enough to compare like-for-like.</p>
+
+    <details class="viz-details">
+      <summary>Show visualization</summary>
+      <div id="first-minute-chart" class="chart">Loading…</div>
+    </details>
+
+    <h2>4. Which Market do you think Invia has potential to grow further?</h2>
+    <p class="answer">Hungary has the clearest growth potential, but with a real caveat attached.</p>
+    <p class="answer">HU is Invia's smallest market (9.6% of portfolio GBV) and by far its least digitally developed – only 37.7% of its GBV comes through the online channel, compared to 46-48% in PL/SK and 68.9% in CZ. That gap is a specific, actionable lever, not a vague hope: even bringing HU up to just the portfolio average (55.7% online) would represent roughly a 40% increase in HU's GBV (~€57M); matching CZ's maturity would roughly double it (~€142M).</p>
+    <p class="answer">The honest caveat: HU currently has the weakest growth rate of all four markets (growing at only 60% of the company's average pace) and contributes the least to overall growth. The opportunity is real, but nothing in the data shows it's already being captured – realizing it would need deliberate investment in HU's online channel, not just time.</p>
+    <p class="answer">If the priority is instead "where is growth already working," Poland is the safer pick – it's growing above-average and is the single largest contributor to the company's total GBV growth. HU is the higher-upside, higher-uncertainty bet; PL is the proven one.</p>
+
+  </main>
+
+  <script>
+    // Load the First Minute chart into its (hidden) container on page load,
+    // so Plotly knows the element's width before it is revealed.
+    fetch("output/first_minute_yoy_season.html")
+      .then(r => r.text())
+      .then(html => {
+        const el = document.getElementById("first-minute-chart");
+        el.innerHTML = html;
+        el.querySelectorAll("script").forEach(old => {
+          const s = document.createElement("script");
+          if (old.src) s.src = old.src; else s.textContent = old.textContent;
+          document.body.appendChild(s);
+        });
+      })
+      .catch(() => { document.getElementById("first-minute-chart").innerHTML = "<p style='color:#b91c1c'>Could not load chart</p>"; });
+  </script>
+
+</body>
+</html>

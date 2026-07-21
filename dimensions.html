@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Booking Analytics — Most Impactful Dimensions</title>
+  <link rel="stylesheet" href="assets/style.css">
+  <script src="https://cdn.plot.ly/plotly-3.0.0.min.js" charset="utf-8"></script>
+</head>
+<body>
+
+  <div class="topbar">
+    <a href="https://github.com/ArcanisX7/bi_booking_data" target="_blank">GitHub Repository</a>
+  </div>
+
+  <nav class="mainnav">
+    <a href="index.html">Overview</a>
+    <a href="dimensions.html" class="active">Main dimensions</a>
+    <a href="qa.html">Question &amp; answer</a>
+  </nav>
+
+  <main class="content">
+    <h1>Most Impactful Dimensions</h1>
+
+    <h2>Share of GBV by Passenger Group<details class="info-details"><summary><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="8"/><path d="M7 3.2h2v2h-2zM7 6.4h2v6.4h-2z"/></svg></summary><span class="info-text">Each bar shows one passenger segment's share of total Gross Booking Value. It reveals which customer types account for the most revenue overall, regardless of how much any single booking is worth.</span></details></h2>
+    <div id="chart-1" class="chart">Loading…</div>
+
+    <h2>AOV by Destination Type<details class="info-details"><summary><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="8"/><path d="M7 3.2h2v2h-2zM7 6.4h2v6.4h-2z"/></svg></summary><span class="info-text">Shows the average value of a single booking for each destination type, computed as total GBV divided by total bookings within that type. It compares price positioning across trip categories, separately from how many bookings each one generates.</span></details></h2>
+    <div id="chart-2" class="chart">Loading…</div>
+
+    <h2>Bookings vs AOV by Passenger Group<details class="info-details"><summary><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="8"/><path d="M7 3.2h2v2h-2zM7 6.4h2v6.4h-2z"/></svg></summary><span class="info-text">Combines three measures in one view: number of bookings (horizontal axis), average value per booking (vertical axis), and total GBV (bubble size). It shows whether a segment's importance comes from volume, from price, or from both.</span></details></h2>
+    <div id="chart-3" class="chart">Loading…</div>
+
+    <h2>Bookings vs AOV by Destination Type<details class="info-details"><summary><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="8"/><path d="M7 3.2h2v2h-2zM7 6.4h2v6.4h-2z"/></svg></summary><span class="info-text">The same three-measure view applied to destination types: bookings on the horizontal axis, average value per booking on the vertical, and total GBV as bubble size.</span></details></h2>
+    <div id="chart-4" class="chart">Loading…</div>
+
+    <h2>Share of GBV by Departure Season<details class="info-details"><summary><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="8"/><path d="M7 3.2h2v2h-2zM7 6.4h2v6.4h-2z"/></svg></summary><span class="info-text">A single proportional bar splitting total GBV between Summer and Winter departures. It shows how concentrated revenue is across the two seasons.</span></details></h2>
+    <div id="chart-5" class="chart chart-short">Loading…</div>
+
+    <h2>Seasonality of Bookings by Month<details class="info-details"><summary><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="8"/><path d="M7 3.2h2v2h-2zM7 6.4h2v6.4h-2z"/></svg></summary><span class="info-text">Plots bookings for each calendar month as a separate line per year, so within-year seasonal patterns and year-on-year shifts are visible side by side. Years that are incomplete or reflect early business ramp-up are excluded to keep the comparison like-for-like.</span></details></h2>
+    <div id="chart-6" class="chart">Loading…</div>
+
+  </main>
+
+  <script>
+    const charts = {
+      "chart-1": "output/share_of_gbv_by_passenger_group.html",
+      "chart-2": "output/aov_by_destination_type.html",
+      "chart-3": "output/bubble_passenger_group.html",
+      "chart-4": "output/bubble_destination_type.html",
+      "chart-5": "output/gbv_departure_season.html",
+      "chart-6": "output/seasonality.html",
+    };
+    for (const [id, url] of Object.entries(charts)) {
+      fetch(url)
+        .then(r => r.text())
+        .then(html => {
+          const el = document.getElementById(id);
+          el.innerHTML = html;
+          el.querySelectorAll("script").forEach(old => {
+            const s = document.createElement("script");
+            if (old.src) s.src = old.src; else s.textContent = old.textContent;
+            document.body.appendChild(s);
+          });
+        })
+        .catch(() => { document.getElementById(id).innerHTML = "<p style='color:#b91c1c'>Could not load " + url + "</p>"; });
+    }
+  </script>
+
+</body>
+</html>

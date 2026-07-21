@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Booking Analytics — Overview</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+  <div class="topbar">
+    <a href="https://github.com/ArcanisX7/bi_booking_data" target="_blank">GitHub Repository</a>
+  </div>
+
+  <nav class="mainnav">
+    <a href="index.html" class="active">Overview</a>
+    <a href="dimensions.html">Main dimensions</a>
+    <a href="qa.html">Question &amp; answer</a>
+  </nav>
+
+  <main class="content">
+    <h1>Performance Overview</h1>
+
+    <p class="kpi-line"><span class="kpi-label">Total Monthly KPI <span class="kpi-period">(Oct 2025 vs Oct 2024)</span></span><span id="kpi-table">Loading…</span></p>
+
+    <div class="two-col">
+      <div>
+        <h2>Year-on-Year by Market &amp; Channel <span style="font-weight:400;font-size:14px;color:#6b7280;">(Oct 2025 vs Oct 2024)</span><details class="info-details"><summary><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="8"/><path d="M7 3.2h2v2h-2zM7 6.4h2v6.4h-2z"/></svg></summary><span class="info-text">Compares the last fully closed month (October 2025) to the same month one year earlier. November 2025 is excluded because it is incomplete in the source data. AOV is calculated as GBV divided by Bookings, not averaged, so it stays accurate at every level (Channel, Market, and Grand Total).</span></details></h2>
+        <div id="main-table">Loading…</div>
+      </div>
+      <div>
+        <h2>Developments over the Last 6 Months <span style="font-weight:400;font-size:14px;color:#6b7280;">(May–Oct 2025 vs. 2024)</span><details class="info-details"><summary><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="8"/><path d="M7 3.2h2v2h-2zM7 6.4h2v6.4h-2z"/></svg></summary><span class="info-text">Shows May–October 2025 against the same months in 2024, month by month. A single month can be noisy for smaller segments, so this view gives a fuller picture of recent momentum. Each month's year-on-year change is shown alongside its raw value.</span></details></h2>
+        <div id="trend-table">Loading…</div>
+
+        <h2>Growth Index &amp; Contribution to Growth <span style="font-weight:400;font-size:14px;color:#6b7280;">(YTD Jan–Oct)</span><details class="info-details"><summary><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="8"/><path d="M7 3.2h2v2h-2zM7 6.4h2v6.4h-2z"/></svg></summary><span class="info-text">Uses a longer year-to-date window (January–October) instead of one month, because smaller markets can swing sharply month to month. A Growth Index of 100 means a market is growing at the same pace as the whole portfolio; above 100 is faster, below 100 is slower. Contribution to Growth shows what share of the portfolio's total absolute growth came from that market.</span></details></h2>
+        <div id="growth-table">Loading…</div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Load each table fragment into its container.
+    // Runs on a live server (GitHub Pages); will not work opening the file directly from disk.
+    const fragments = {
+      "kpi-table": "output/kpi_table.html",
+      "main-table": "output/main_table.html",
+      "trend-table": "output/trend_table.html",
+      "growth-table": "output/growth_table.html",
+    };
+    for (const [id, url] of Object.entries(fragments)) {
+      fetch(url)
+        .then(r => r.text())
+        .then(html => { document.getElementById(id).innerHTML = html; })
+        .catch(() => { document.getElementById(id).innerHTML = "<p style='color:#b91c1c'>Could not load " + url + "</p>"; });
+    }
+  </script>
+
+</body>
+</html>

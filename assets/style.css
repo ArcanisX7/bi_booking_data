@@ -1,0 +1,170 @@
+:root {
+  --invia-blue: #05a8e6;
+  --invia-navy: #003a70;
+  --light-bg: #d4eef7;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: #1f2937;
+  background: var(--light-bg);
+}
+
+/* --- Top bar with repository link --- */
+.topbar {
+  background: white;
+  text-align: right;
+  padding: 8px 24px;
+}
+.topbar a {
+  color: var(--invia-navy);
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 14px;
+}
+.topbar a:hover { text-decoration: underline; }
+
+/* --- Navigation menu --- */
+.mainnav {
+  background: var(--invia-navy);
+  display: flex;
+  justify-content: center;
+  gap: 48px;
+  padding: 18px 24px;
+}
+.mainnav a {
+  color: white;
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: 600;
+  opacity: 0.85;
+}
+.mainnav a:hover { opacity: 1; }
+.mainnav a.active { opacity: 1; border-bottom: 3px solid var(--invia-blue); padding-bottom: 4px; }
+
+/* --- Content card --- */
+.content {
+  background: white;
+  max-width: 1400px;
+  margin: 40px auto;
+  padding: 40px;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+.content h1 { font-size: 26px; color: var(--invia-navy); margin-bottom: 20px; }
+.content h2 { font-size: 18px; color: var(--invia-navy); margin: 32px 0 12px; }
+.content p.intro { color: #6b7280; margin-bottom: 24px; }
+
+/* --- Info icon + floating methodology popover --- */
+.info-details { display: inline-block; position: relative; }
+.info-details summary {
+  display: inline-flex;
+  align-items: center;
+  list-style: none;
+  cursor: pointer;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+.info-details summary svg { width: 16px; height: 16px; display: block; }
+.info-details summary svg circle { fill: var(--invia-blue); }
+.info-details summary svg path { fill: white; }
+.info-details[open] summary svg circle { fill: var(--invia-navy); }
+.info-details summary::-webkit-details-marker { display: none; }
+.info-details summary::marker { content: ""; }
+.info-details .info-text {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 20;
+  width: 340px;
+  font-size: 13px;
+  font-weight: 400;
+  color: #4b5563;
+  line-height: 1.5;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-left: 3px solid var(--invia-blue);
+  border-radius: 4px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+  padding: 10px 14px;
+  margin-top: 6px;
+  white-space: normal;
+}
+
+/* --- Tables --- */
+table.onepager { border-collapse: collapse; width: 100%; font-size: 13px; margin-bottom: 16px; }
+table.onepager th {
+  background: var(--invia-blue); color: white; text-align: left;
+  padding: 8px 12px; font-weight: 600;
+}
+table.onepager td { padding: 6px 12px; border-bottom: 1px solid #f1f5f9; }
+table.onepager tr:hover { background: #f0f9ff; }
+table.onepager tr.total-row { font-weight: 600; background: #f8fafc; }
+.yoy-positive { color: #15803d; }
+.yoy-negative { color: #b91c1c; }
+.yoy-flat { color: #6b7280; }
+
+/* --- Chart containers --- */
+.chart { height: 450px; margin-bottom: 24px; }
+.chart.chart-short { height: 300px; }
+
+/* --- Q&A page --- */
+.content p.answer {
+  font-size: 15px;
+  line-height: 1.65;
+  color: #374151;
+  margin-bottom: 14px;
+}
+.content h2 + p.answer { margin-top: 4px; }
+
+.viz-details { margin-top: 8px; margin-bottom: 32px; }
+.viz-details summary {
+  display: inline-block;
+  list-style: none;
+  cursor: pointer;
+  color: var(--invia-blue);
+  font-weight: 600;
+  font-size: 14px;
+  padding: 6px 0;
+}
+.viz-details summary::-webkit-details-marker { display: none; }
+.viz-details summary::marker { content: ""; }
+.viz-details summary::before { content: "▸ "; }
+.viz-details[open] summary::before { content: "▾ "; }
+
+/* --- KPI line (single line, heading-sized, table-style values, stretched full width) --- */
+.kpi-line {
+  display: flex;
+  align-items: baseline;
+  font-size: 18px;
+  margin: 0 0 20px;
+}
+.kpi-line .kpi-label {
+  color: var(--invia-navy);
+  font-weight: 700;
+  white-space: nowrap;
+  margin-right: 32px;
+}
+.kpi-line .kpi-period {
+  font-weight: 400;
+  font-size: 14px;
+  color: #6b7280;
+}
+.kpi-line #kpi-table {
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+}
+.kpi-line .metric { font-weight: 400; white-space: nowrap; }
+.kpi-line .metric strong { font-weight: 600; }
+
+/* --- Two-column layout for Overview tables --- */
+.two-col {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+}
+.two-col > div { flex: 1; min-width: 0; }
+.two-col > div > h2:first-child { margin-top: 0; }
